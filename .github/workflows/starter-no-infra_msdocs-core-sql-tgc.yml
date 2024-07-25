@@ -27,6 +27,9 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Install dotnet ef
+        run: dotnet tool install -g dotnet-ef --version 8.*
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -40,7 +43,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT - tc03
+      id-token: write #This is required for requesting the JWT - tc04
 
     steps:
       - name: Download artifact from build job
